@@ -18,5 +18,18 @@ void test_validate_my_username()
      * TODO: Replace the line below with your code here as described above to verify your /conf/username.txt 
      * config file and my_username() functions are setup properly
      */
-    TEST_ASSERT_TRUE_MESSAGE(false,"AESD students, please fix me!");
+
+// 1. Obtenemos el nombre de usuario definido en el código
+    const char *username_from_code = my_username();
+
+// 2. Obtenemos el nombre de usuario que escribiste en el archivo txt
+    char *username_from_conf = malloc_username_from_conf_file();
+
+// 3. Comparamos que ambos sean iguales
+    TEST_ASSERT_EQUAL_STRING_MESSAGE(username_from_conf, username_from_code, "El nombre de usuario en autotest-validate.c no coincide con conf/username.txt");
+
+free(username_from_conf);
+
+//    TEST_ASSERT_TRUE_MESSAGE(false,"AESD students, please fix me!");
+
 }
