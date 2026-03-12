@@ -1,0 +1,4 @@
+aarch64-none-linux-gnu-gcc: command not found
+
+--- SYSROOT PATH ---
+aarch64-none-linux-gnu-gcc: command not found
