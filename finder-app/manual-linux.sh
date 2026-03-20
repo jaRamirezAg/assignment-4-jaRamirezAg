@@ -171,8 +171,10 @@ sudo chown -R root:root *
 # TODO: Create initramfs.cpio.gz
 # Empaquetamos todo en un archivo comprimido que el Kernel cargará en RAM
 find . | cpio -H newc -ov --owner root:root > "${OUTDIR}/initramfs.cpio"
+
+# Ahora nos movemos a OUTDIR para comprimir y verificar
+cd "${OUTDIR}"
 gzip -f "${OUTDIR}/initramfs.cpio"
 
-# Moverse de vuelta a OUTDIR para verificar (ayuda a los logs de GitHub)
-cd "${OUTDIR}"
-ls -l Image initramfs.cpio.gz
+ls -l "${OUTDIR}/Image"
+ls -l "${OUTDIR}/initramfs.cpio.gz"
