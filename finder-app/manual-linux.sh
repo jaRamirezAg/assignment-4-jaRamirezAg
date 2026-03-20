@@ -47,7 +47,7 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
 fi
 
 echo "Adding the Image in outdir"
-cp ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ${OUTDIR}/
+cp "${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image" "${OUTDIR}/Image"
 
 echo "Creating the staging directory for the root filesystem"
 cd "$OUTDIR"
@@ -172,3 +172,7 @@ sudo chown -R root:root *
 # Empaquetamos todo en un archivo comprimido que el Kernel cargará en RAM
 find . | cpio -H newc -ov --owner root:root > "${OUTDIR}/initramfs.cpio"
 gzip -f "${OUTDIR}/initramfs.cpio"
+
+# Moverse de vuelta a OUTDIR para verificar (ayuda a los logs de GitHub)
+cd "${OUTDIR}"
+ls -l Image initramfs.cpio.gz
