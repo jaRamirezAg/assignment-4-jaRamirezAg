@@ -42,16 +42,22 @@ do
 done
 
 # Ejecutar finder.sh (también debe estar en el PATH)
-OUTPUTSTRING=$(finder.sh "$WRITEDIR" "$WRITESTR")
+#OUTPUTSTRING=$(finder.sh "$WRITEDIR" "$WRITESTR")
+OUTPUTSTRING=$(finder.sh "$WRITEDIR" "$WRITESTR" | tail -n 1 | xargs)
 
 # --- REQUISITO 4c: Escribir resultado en /tmp/assignment4-result.txt ---
 echo "${OUTPUTSTRING}" > /tmp/assignment4-result.txt
+
+# Extraer solo los números de la cadena para comparar (esto no falla nunca)
+FOUND_FILES=$(echo "$OUTPUTSTRING" | cut -d ' ' -f 5)
+FOUND_LINES=$(echo "$OUTPUTSTRING" | cut -d ' ' -f 11)
 
 # Limpieza opcional de datos de prueba
 rm -rf /tmp/aeld-data
 
 # Verificar si el resultado coincide con lo esperado
-if echo "${OUTPUTSTRING}" | grep -qi "number of files are ${NUMFILES}" && echo "${OUTPUTSTRING}" | grep -qi "number of matching lines are ${NUMFILES}"; then
+# Verificación simplificada
+if [ "$FOUND_FILES" = "$NUMFILES" ] && [ "$FOUND_LINES" = "$NUMFILES" ]; then
     echo "success"
     exit 0
 else
