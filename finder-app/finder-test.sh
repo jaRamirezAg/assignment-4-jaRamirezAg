@@ -51,7 +51,7 @@ echo "${OUTPUTSTRING}" > /tmp/assignment4-result.txt
 rm -rf /tmp/aeld-data
 
 # Verificar si el resultado coincide con lo esperado
-if echo "${OUTPUTSTRING}" | grep -q "The number of files are ${NUMFILES}"; then
+if echo "${OUTPUTSTRING}" | grep -e "The number of files are ${NUMFILES}" | grep -q "the number of matching lines are"; then
     echo "success"
     exit 0
 else
