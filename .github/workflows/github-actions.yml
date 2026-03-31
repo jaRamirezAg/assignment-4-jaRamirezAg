@@ -3,17 +3,18 @@ on: [push, pull_request]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Mantenemos esto para que no se quede esperando
     steps:
       - uses: actions/checkout@v4
         with:
-          submodules: 'recursive' # Esto descarga buildroot sin necesidad de SSH
+          submodules: 'recursive'
 
       - name: Install dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y bc build-essential cpio file python3 rsync unzip wget
+          sudo apt-get install -y bc build-essential cpio file python3 rsync unzip wget qemu-system-x86
 
-      - name: Build
+      - name: Build and Test
         run: |
-          ./build.sh # O los comandos que uses para compilar
+          # Aquí el script de la tarea 5 ejecutará todo automáticamente
+          ./full-test.sh
