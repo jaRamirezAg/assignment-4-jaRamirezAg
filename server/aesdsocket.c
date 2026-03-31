@@ -105,8 +105,11 @@ int main(int argc, char *argv[]) {
         rewind(fp);
         size_t bytes_read;
         while ((bytes_read = fread(buffer, 1, BUFFER_SIZE, fp)) > 0) {
-            send(client_fd, buffer, bytes_read, 0);
-        }
+		if (send(client_fd, buffer, bytes_read, 0) == -1) {
+                    syslog(LOG_ERR, "Error sending data");
+                    break;  
+		}      
+	}
 
         fclose(fp);
         close(client_fd);
